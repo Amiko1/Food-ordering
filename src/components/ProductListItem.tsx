@@ -1,6 +1,7 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Colors from "@/constants/Colors";
 import { Product } from "@/types";
+import { Link } from "expo-router";
 
 const defaultImage =
   "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
@@ -12,15 +13,17 @@ export const ProductListItem = ({ product }: ProductListItemProps) => {
   const { image = defaultImage, name = "Papavero", price = 12 } = product;
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: image || defaultImage }}
-        style={styles.image}
-        resizeMode="contain"
-      />
-      <Text style={styles.title}>{name}</Text>
-      <Text style={styles.price}>${price.toFixed(2)}</Text>
-    </View>
+    <Link href={`/menu/${product.id}`} asChild>
+      <Pressable style={styles.container}>
+        <Image
+          source={{ uri: image || defaultImage }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.price}>${price.toFixed(2)}</Text>
+      </Pressable>
+    </Link>
   );
 };
 
@@ -31,6 +34,7 @@ const styles = StyleSheet.create({
     padding: 10,
     overflow: "hidden",
     flex: 1,
+    maxWidth: "50%",
   },
   image: {
     width: "100%",
