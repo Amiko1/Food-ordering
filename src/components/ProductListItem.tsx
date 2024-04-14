@@ -1,16 +1,25 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import Colors from "@/constants/Colors";
+import { Product } from "@/types";
 
-export const ProductListItem = ({ product }) => {
+const defaultImage =
+  "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
+
+type ProductListItemProps = {
+  product: Product;
+};
+export const ProductListItem = ({ product }: ProductListItemProps) => {
+  const { image = defaultImage, name = "Papavero", price = 12 } = product;
+
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: product.image }}
+        source={{ uri: image || defaultImage }}
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.title}>{product.name}</Text>
-      <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+      <Text style={styles.title}>{name}</Text>
+      <Text style={styles.price}>${price.toFixed(2)}</Text>
     </View>
   );
 };
@@ -21,6 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     overflow: "hidden",
+    flex: 1,
   },
   image: {
     width: "100%",
