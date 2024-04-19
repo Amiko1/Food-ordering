@@ -1,7 +1,7 @@
 import { StyleSheet, Image, Text, View, FlatList } from "react-native";
 import { ProductListItem } from "@components/ProductListItem";
 import products from "@assets/data/products";
-import { Stack } from "expo-router";
+import { Link, Redirect, Stack } from "expo-router";
 
 export default function MenuScreen() {
   return (
