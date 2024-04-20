@@ -21,8 +21,10 @@ const defaultPizzaImage =
   "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
 
 const ProductDetailsScreen = () => {
-  const { id: idString } = useLocalSearchParams();
-  const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
+  const { id: idReference } = useLocalSearchParams();
+  const id = parseFloat(
+    Array.isArray(idReference) ? idReference[0] : idReference || ""
+  );
 
   const { data: product, error, isLoading } = useProduct(id);
   const { addItem } = useCart();

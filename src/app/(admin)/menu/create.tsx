@@ -22,7 +22,7 @@ const CreateScreen = () => {
 
   const { id: idReference } = useLocalSearchParams();
   const id = parseFloat(
-    Array.isArray(idReference) ? idReference[0] : idReference
+    Array.isArray(idReference) ? idReference[0] : idReference || ""
   );
 
   const isUpdating = !!id;
