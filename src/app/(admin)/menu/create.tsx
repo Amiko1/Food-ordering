@@ -20,8 +20,10 @@ const CreateScreen = () => {
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState("");
 
-  const { id: idString } = useLocalSearchParams();
-  const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
+  const { id: idReference } = useLocalSearchParams();
+  const id = parseFloat(
+    Array.isArray(idReference) ? idReference[0] : idReference
+  );
 
   const isUpdating = !!id;
 
