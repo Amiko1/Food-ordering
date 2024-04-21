@@ -10,7 +10,8 @@ export default function OrdersTabs() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} edges={["top"]}>
       <TopTabs>
-        <TopTabs.Screen name="index" options={{ title: "Active" }} />
+        <TopTabs.Screen name="index" options={{ tabBarLabel: "active" }} />
+        <TopTabs.Screen name="archive" options={{ tabBarLabel: "archived" }} />
       </TopTabs>
     </SafeAreaView>
   );
