@@ -7,11 +7,11 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import OrderItemListItem from "../../../components/OrderItemListItem";
-import OrderListItem from "../../../components/OrderListItem";
+import OrderItemListItem from "@components/OrderItemListItem";
+import OrderListItem from "@components/OrderListItem";
 import { OrderStatusList } from "@/types";
 import Colors from "@/constants/Colors";
-import { useOrderDetails } from "@/app/api/orders";
+import { useOrderDetails, useUpdateOrder } from "@/app/api/orders";
 
 const OrderDetailScreen = () => {
   const { id: idReference } = useLocalSearchParams();
@@ -19,7 +19,12 @@ const OrderDetailScreen = () => {
     Array.isArray(idReference) ? idReference[0] : idReference || ""
   );
   const { data: order, isLoading, isError } = useOrderDetails(id);
-  console.log(order, "?");
+  const { mutate: updateOrder } = useUpdateOrder();
+
+  const updateStatus = (status: string) => {
+    updateOrder({ id: id, updatedFields: { status } });
+  };
+
   if (isLoading) {
     return <ActivityIndicator />;
   }
@@ -34,7 +39,7 @@ const OrderDetailScreen = () => {
       <OrderListItem order={order} />
 
       <FlatList
-        data={order?.order_items}
+        data={order.order_items}
         renderItem={({ item }) => <OrderItemListItem item={item} />}
         contentContainerStyle={{ gap: 10 }}
         ListFooterComponent={() => (
@@ -44,7 +49,7 @@ const OrderDetailScreen = () => {
               {OrderStatusList.map((status) => (
                 <Pressable
                   key={status}
-                  onPress={() => console.warn("Update status")}
+                  onPress={() => updateStatus(status)}
                   style={{
                     borderColor: Colors.light.tint,
                     borderWidth: 1,
