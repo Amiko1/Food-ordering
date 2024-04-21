@@ -69,6 +69,7 @@ export const useInsertOrder = () => {
           user_id: userId,
           ...data,
         })
+        .select()
         .single();
 
       if (error) {

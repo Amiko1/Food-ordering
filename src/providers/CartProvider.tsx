@@ -2,6 +2,7 @@ import { CartItem, Tables } from "@/types";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { randomUUID } from "expo-crypto";
 import { useInsertOrder } from "@/app/api/orders";
+import { router } from "expo-router";
 type CartType = {
   items: CartItem[];
   addItem: (product: Tables<"products">, size: CartItem["size"]) => void;
@@ -61,8 +62,19 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     0
   );
 
+  const clearCart = () => {
+    setItems([]);
+  };
   const checkout = () => {
-    insertOrder({ total });
+    insertOrder(
+      { total },
+      {
+        onSuccess: (data) => {
+          clearCart();
+          router.push(`/(user)/orders/${data.id}`);
+        },
+      }
+    );
   };
 
   return (
