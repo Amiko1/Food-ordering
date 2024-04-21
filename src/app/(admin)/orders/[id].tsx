@@ -19,11 +19,11 @@ const OrderDetailScreen = () => {
     Array.isArray(idReference) ? idReference[0] : idReference || ""
   );
   const { data: order, isLoading, isError } = useOrderDetails(id);
-
+  console.log(order, "?");
   if (isLoading) {
     return <ActivityIndicator />;
   }
-  if (isError) {
+  if (isError || !order) {
     return <Text>Failed to fetch products</Text>;
   }
 
@@ -34,7 +34,7 @@ const OrderDetailScreen = () => {
       <OrderListItem order={order} />
 
       <FlatList
-        data={order.order_items}
+        data={order?.order_items}
         renderItem={({ item }) => <OrderItemListItem item={item} />}
         contentContainerStyle={{ gap: 10 }}
         ListFooterComponent={() => (
