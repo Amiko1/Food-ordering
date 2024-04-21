@@ -20,10 +20,14 @@ const OrderDetailScreen = () => {
   const { data: order, isLoading, isError } = useOrderDetails(id);
 
   if (isLoading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ marginTop: 64 }} />;
   }
   if (isError || !order) {
-    return <Text>Failed to fetch products</Text>;
+    return (
+      <Text style={{ marginTop: 124, textAlign: "center" }}>
+        Failed to fetch products
+      </Text>
+    );
   }
 
   return (

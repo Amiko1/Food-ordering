@@ -9,7 +9,7 @@ const index = () => {
   const { session, loading, isAdmin } = useAuth();
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ marginTop: 64 }} />;
   }
 
   if (!session) {

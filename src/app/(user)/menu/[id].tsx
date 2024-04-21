@@ -22,7 +22,7 @@ const ProductDetailsScreen = () => {
   const { id: idString } = useLocalSearchParams();
   const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
 
-  const { data: product, error, isLoading } = useProduct(id);
+  const { data: product, isError, isLoading } = useProduct(id);
   const { addItem } = useCart();
   const router = useRouter();
 
@@ -35,10 +35,14 @@ const ProductDetailsScreen = () => {
   };
 
   if (isLoading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ marginTop: 64 }} />;
   }
-  if (error) {
-    return <Text>Failed to fetch products</Text>;
+  if (isError) {
+    return (
+      <Text style={{ marginTop: 124, textAlign: "center" }}>
+        Failed to fetch products
+      </Text>
+    );
   }
 
   return (

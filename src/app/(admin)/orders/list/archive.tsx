@@ -12,10 +12,14 @@ export default function OrdersScreen() {
   } = useAdminorderList({ archived: true });
 
   if (isLoading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ marginTop: 64 }} />;
   }
   if (error) {
-    return <Text>Failed to fetch products</Text>;
+    return (
+      <Text style={{ marginTop: 124, textAlign: "center" }}>
+        Failed to fetch products
+      </Text>
+    );
   }
   return (
     <>

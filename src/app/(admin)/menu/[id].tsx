@@ -39,7 +39,11 @@ const ProductDetailsScreen = () => {
   };
 
   if (isLoading) {
-    return <ActivityIndicator />;
+    return (
+      <Text style={{ marginTop: 124, textAlign: "center" }}>
+        Failed to fetch products
+      </Text>
+    );
   }
   if (error) {
     return <Text>Failed to fetch products</Text>;
